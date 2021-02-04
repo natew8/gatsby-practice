@@ -1,23 +1,35 @@
-import { Link } from 'gatsby'
+import { Link, graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
+import headerStyles from './header.module.scss'
 
 const Header = () => {
+
+    const data = useStaticQuery(graphql`
+        query{
+            site{
+                siteMetadata{
+                    title
+                }
+            }
+        }
+    `)
+
     return (
-        <header>
-            <h1>Nate Waite</h1>
+        <header className={headerStyles.header}>
+            <h1><Link className={headerStyles.title} to='/'>{data.site.siteMetadata.title}</Link></h1>
             <nav>
-                <ul>
+                <ul className={headerStyles.navList}>
                     <li>
-                        <Link to='/'>Home</Link>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to='/'>Home</Link>
                     </li>
                     <li>
-                        <Link to='/blog'>My Blog</Link>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to='/blog'>My Blog</Link>
                     </li>
                     <li>
-                        <Link to='/about'>About Me</Link>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to='/about'>About Me</Link>
                     </li>
                     <li>
-                        <Link to='/contact'>Contact Me</Link>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to='/contact'>Contact Me</Link>
                     </li>
                 </ul>
             </nav>
